@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coding Conf ticket generator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png" />
+
+  <!-- Google Fonts: Inconsolata -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Your stylesheet -->
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <!-- Decorative background patterns -->
+  <div class="decor" aria-hidden="true">
+    <img class="decor__lines" src="./assets/images/pattern-lines.svg" alt="" />
+    <img class="decor__circle decor__circle--1" src="./assets/images/pattern-circle.svg" alt="" />
+    <img class="decor__circle decor__circle--2" src="./assets/images/pattern-circle.svg" alt="" />
+    <img class="decor__top" src="./assets/images/pattern-squiggly-line-top.svg" alt="" />
+    <picture>
+      <source media="(min-width: 768px)" srcset="./assets/images/pattern-squiggly-line-bottom-desktop.svg" />
+      <img class="decor__bottom" src="./assets/images/pattern-squiggly-line-bottom-mobile-tablet.svg" alt="" />
+    </picture>
+  </div>
+
+  <div class="page">
+    <header class="site-header">
+      <img src="./assets/images/logo-full.svg" alt="Coding Conf" class="site-header__logo" />
+    </header>
+
+    <main class="main">
+      <!-- ========== FORM VIEW ========== -->
+      <section id="form-view" class="view">
+        <h1 class="title">Your Journey to Coding Conf 2025 Starts Here!</h1>
+        <p class="subtitle">Secure your spot at next year's biggest coding conference.</p>
+
+        <form id="ticket-form" class="form" novalidate>
+          <!-- Avatar upload -->
+          <div class="field">
+            <span class="label" id="avatar-label">Upload Avatar</span>
+
+            <div class="dropzone" id="dropzone">
+              <input
+                type="file"
+                id="avatar"
+                class="visually-hidden"
+                accept="image/png, image/jpeg"
+                aria-labelledby="avatar-label"
+                aria-describedby="avatar-hint"
+              />
+
+              <!-- Empty state -->
+              <label for="avatar" class="dropzone__empty" id="dropzone-empty">
+                <span class="dropzone__icon">
+                  <img src="./assets/images/icon-upload.svg" alt="" />
+                </span>
+                <span class="dropzone__text">Drag and drop or click to upload</span>
+              </label>
+
+              <!-- Preview state -->
+              <div class="dropzone__preview" id="dropzone-preview" hidden>
+                <img id="avatar-preview" class="dropzone__thumb" src="" alt="Your uploaded avatar preview" />
+                <div class="dropzone__actions">
+                  <button type="button" class="mini-btn" id="remove-avatar">Remove image</button>
+                  <button type="button" class="mini-btn" id="change-avatar">Change image</button>
+                </div>
+              </div>
+            </div>
+
+            <p class="hint" id="avatar-hint">
+              <img src="./assets/images/icon-info.svg" alt="" />
+              <span id="avatar-hint-text">Upload your photo (JPG or PNG, max size: 500KB).</span>
+            </p>
+          </div>
+
+          <!-- Full name -->
+          <div class="field">
+            <label class="label" for="name">Full Name</label>
+            <input type="text" id="name" name="name" class="input" autocomplete="name" aria-describedby="name-error" />
+            <p class="error" id="name-error" role="alert" hidden>
+              <img src="./assets/images/icon-info.svg" alt="" />
+              <span></span>
+            </p>
+          </div>
+
+          <!-- Email -->
+          <div class="field">
+            <label class="label" for="email">Email Address</label>
+            <input type="email" id="email" name="email" class="input" placeholder="example@email.com" autocomplete="email" aria-describedby="email-error" />
+            <p class="error" id="email-error" role="alert" hidden>
+              <img src="./assets/images/icon-info.svg" alt="" />
+              <span></span>
+            </p>
+          </div>
+
+          <!-- GitHub -->
+          <div class="field">
+            <label class="label" for="github">GitHub Username</label>
+            <input type="text" id="github" name="github" class="input" placeholder="@yourusername" autocomplete="off" aria-describedby="github-error" />
+            <p class="error" id="github-error" role="alert" hidden>
+              <img src="./assets/images/icon-info.svg" alt="" />
+              <span></span>
+            </p>
+          </div>
+
+          <button type="submit" class="submit">Generate My Ticket</button>
+        </form>
+      </section>
+
+      <!-- ========== TICKET VIEW ========== -->
+      <section id="ticket-view" class="view" hidden>
+        <h1 class="title" id="ticket-title" tabindex="-1">
+          Congrats, <span class="grad" id="t-name-title"></span>! Your ticket is ready.
+        </h1>
+        <p class="subtitle subtitle--narrow">
+          We've emailed your ticket to <span class="orange" id="t-email"></span>
+          and will send updates in the run up to the event.
+        </p>
+
+        <article class="ticket" aria-label="Your Coding Conf ticket">
+          <div class="ticket__left">
+            <div>
+              <img src="./assets/images/logo-full.svg" alt="Coding Conf" class="ticket__logo" />
+              <p class="ticket__date">Jan 31, 2025 / Austin, TX</p>
+            </div>
+
+            <div class="ticket__person">
+              <img id="t-avatar" class="ticket__avatar" src="" alt="" />
+              <div>
+                <p class="ticket__name" id="t-name"></p>
+                <p class="ticket__github">
+                  <img src="./assets/images/icon-github.svg" alt="GitHub" />
+                  <span id="t-github"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <p class="ticket__number" id="t-number"></p>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <!-- Your script -->
+  <script src="./script.js"></script>
+</body>
+</html>
